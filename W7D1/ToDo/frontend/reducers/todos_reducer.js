@@ -18,12 +18,18 @@ const initialState = {
 
 
 export const todosReducer = (state = initialState, action) => {
+
   switch(action.type){
-    // case RECEIVE_TODO:
-    // return  [...state,action.todo];
+    case RECEIVE_TODOS:
+      const newState = {};
+      action.todos.forEach( todo => newState[todo.id] = todo);
+      return newState;
+        
+    case RECEIVE_TODO:
+      return Object.assign({}, state, {[action.todo.id]: action.todo });
     
     default:
-    return state;
+      return state;
   }
 };
 

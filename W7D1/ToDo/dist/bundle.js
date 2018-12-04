@@ -104,7 +104,8 @@ var RECEIVE_TODO = 'RECEIVE_TODO';
 var receiveToDo = function receiveToDo(todo) {
   return {
     type: RECEIVE_TODO,
-    todo: todo
+    todo: todo // todo: todo
+
   };
 };
 var receiveToDos = function receiveToDos(todos) {
@@ -147,6 +148,8 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "todosReducer", function() { return todosReducer; });
 /* harmony import */ var _actions_todo_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/todo_actions */ "./frontend/actions/todo_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 var initialState = {
   1: {
@@ -167,8 +170,16 @@ var todosReducer = function todosReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    // case RECEIVE_TODO:
-    // return  [...state,action.todo];
+    case _actions_todo_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_TODOS"]:
+      var newState = {};
+      action.todos.forEach(function (todo) {
+        return newState[todo.id] = todo;
+      });
+      return newState;
+
+    case _actions_todo_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_TODO"]:
+      return Object.assign({}, state, _defineProperty({}, action.todo.id, action.todo));
+
     default:
       return state;
   }
@@ -213,6 +224,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
+/* harmony import */ var _actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions/todo_actions */ "./frontend/actions/todo_actions.js");
+
 
 
 
@@ -220,6 +233,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var root = document.getElementById('root');
   var store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])();
   window.store = store;
+  window.receiveToDo = _actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["receiveToDo"];
+  window.receiveToDos = _actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["receiveToDos"];
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Todos App"), root);
 });
 
