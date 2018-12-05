@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   window.store = store;
   window.receiveToDo = receiveToDo;
   window.receiveToDos = receiveToDos;
-  ReactDOM.render(<Root />, root);
+  ReactDOM.render(<Root store={store}/>, root);
 });
 
 

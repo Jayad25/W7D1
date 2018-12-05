@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import App from './app';
 
+// console.log(Provider)
 
 const Root = ({ store }) => (
   <Provider store={store}>
