@@ -172,9 +172,11 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: todo.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_item__WEBPACK_IMPORTED_MODULE_1__["TodoListItem"], {
-          props: todo
+          todo: todo
         }));
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        receiveToDo: this.props.receiveToDo
+      }));
     }
   }]);
 
@@ -244,7 +246,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 var TodoListItem = function TodoListItem(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, props.props.title);
+  console.log(props);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, props.todo.title);
 }; // <li key={todo.to.id}>{todo.title}</li>
 
 /***/ }),
@@ -316,6 +319,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -352,6 +357,7 @@ function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.setTitle = _this.setTitle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.setBody = _this.setBody.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -363,10 +369,11 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      // debugger;
       e.preventDefault(); // What default behavior do we prevent?
 
       var todo = Object.assign({}, this.state, {
-        id: uniqueID()
+        id: this.uniqueID()
       });
       this.props.receiveToDo(todo);
     }
@@ -385,23 +392,30 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$state = this.state,
           title = _this$state.title,
-          body = _this$state.body;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.handleSubmit
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Title:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          body = _this$state.body; // console.log(this.props);
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Title:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        onChange: this.setTitle,
+        name: "title",
+        onChange: this.handleChange,
         value: title
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Body:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        onChange: this.setBody,
+        name: "body",
+        onChange: this.handleChange,
         value: body
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
+        onClick: this.handleSubmit,
+        type: "submit",
         name: "button"
       }, "Create To Do!")));
     }

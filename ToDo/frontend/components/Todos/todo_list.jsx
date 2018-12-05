@@ -8,11 +8,11 @@ class TodoList extends React.Component {
     return (
       <div className="todolist">
   
-        {this.props.todos.map( todo => <li key={todo.id}><TodoListItem props={todo}/></li>)}
+        {this.props.todos.map( todo => <li key={todo.id}><TodoListItem todo={todo}/></li>)}
         <br/>
         <hr/>
         
-        <TodoForm />
+        <TodoForm receiveToDo = {this.props.receiveToDo}/>
       
       </div>
     );

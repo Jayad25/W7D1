@@ -10,6 +10,7 @@ class TodoForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setTitle = this.setTitle.bind(this);
     this.setBody = this.setBody.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   
   uniqueID() {
@@ -17,13 +18,15 @@ class TodoForm extends React.Component {
   }
   
   handleSubmit(e) {
+    // debugger;
     e.preventDefault();
     // What default behavior do we prevent?
-    const todo = Object.assign({}, this.state, {id: uniqueID()} );
+    const todo = Object.assign({}, this.state, {id: this.uniqueID()} );
     this.props.receiveToDo(todo);
     
     
   }
+  
   setTitle(e){
     this.setState({
       title:e.target.value
@@ -35,21 +38,29 @@ class TodoForm extends React.Component {
     });
   }
   
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+    
+  }
+  
   render() {
     const {title,body}=this.state;
+    // console.log(this.props);
     return (
       <div>
-        <form onSubmit={this.handleSubmit} >
+        <form >
           
         <label> 
-          Title:<input type="text" onChange={this.setTitle} value={title}  />
+          Title:<input type="text" name="title" onChange={this.handleChange} value={title}  />
         </label>
           
         <label> 
-          Body:<input type="text" onChange={this.setBody}  value={body}/>
+          Body:<input type="text" name="body" onChange={this.handleChange}  value={body}/>
         </label>
         
-        <button type="button" name="button">Create To Do!</button>
+        <button onClick={this.handleSubmit} type="submit" name="button">Create To Do!</button>
           
         </form>
       </div>

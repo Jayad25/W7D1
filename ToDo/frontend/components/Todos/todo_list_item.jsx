@@ -1,10 +1,11 @@
 import React from 'react';
 
 export const TodoListItem = (props)=>{
+  console.log(props);
   return(
     <div>
-    
-      {props.props.title}
+      
+      {props.todo.title}
       
     
     </div>
